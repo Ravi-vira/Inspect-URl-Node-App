@@ -1,3 +1,4 @@
+const chalk = require('chalk');
 const readline = require('readline');
 const validator = require('validator');
 const axios = require('axios');
@@ -13,12 +14,12 @@ const rl = readline.createInterface({
 // Function to validate, check URL, and store details in a JSON file
 async function checkUrl(url) {
     if (validator.isURL(url)) {
-        console.log('✅ Valid URL');
+        console.log(chalk.black.bgGreenBright('✅ Valid URL'));
 
         try {
             // Make an HTTP GET request to check reachability
             const response = await axios.get(url);
-            console.log(`✅ The URL is reachable. Status Code: ${response.status}`);
+            console.log(chalk.black.bgGreen(`✅ The URL is reachable. Status Code: ${response.status}`));
 
             // Parse the URL and extract query parameters
             const parsedUrl = new URL(url);
@@ -28,10 +29,13 @@ async function checkUrl(url) {
 
             // Add query parameters if they exist
             if (Object.keys(params).length > 0) {
-                console.log('✅ URL contains query parameters:', params);
+                console.log(chalk.black.bgGreenBright('✅ URL contains query parameters:'));
+                Object.entries(params).forEach(([key, value]) => {
+                    console.log(chalk.black.bgGreen(`   ${key}: ${value}`));
+                });
                 data.params = params;
             } else {
-                console.log('ℹ️ No query parameters found in the URL.');
+                console.log(chalk.black.bgRedBright('ℹ️ No query parameters found in the URL.'));
             }
 
             // Read the existing data from the JSON file
@@ -45,12 +49,12 @@ async function checkUrl(url) {
 
             // Write the updated array back to the file
             fs.writeFileSync('url-data.json', JSON.stringify(fileData, null, 4));
-            console.log('✅ Data appended to url-data.json');
+            console.log(chalk.black.bgGreenBright('✅ Data appended to url-data.json'));
         } catch (error) {
-            console.log('❌ The URL is unreachable or blocked.');
+            console.log(chalk.black.bgRedBright('❌ The URL is unreachable or blocked.'));
         }
     } else {
-        console.log('❌ Invalid URL');
+        console.log(chalk.black.bgRedBright('❌ Invalid URL'));
     }
 
     // Close the input stream
