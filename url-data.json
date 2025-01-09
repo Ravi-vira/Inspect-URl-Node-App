@@ -1,0 +1,26 @@
+[
+    {
+        "url": "https://example.com?name=Ravi&age=25",
+        "params": {
+            "name": "Ravi",
+            "age": "25"
+        }
+    },
+    {
+        "url": "https://example.com?name=Ravi&age=25",
+        "params": {
+            "name": "Ravi",
+            "age": "25"
+        }
+    },
+    {
+        "url": "https://google.com"
+    },
+    {
+        "url": "https://example.com?name=Ravi&age=25",
+        "params": {
+            "name": "Ravi",
+            "age": "25"
+        }
+    }
+]
